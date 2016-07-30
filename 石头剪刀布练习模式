@@ -1,0 +1,67 @@
+#include<stdio.h> //引进 main函数所在的头文件 
+#include<stdlib.h>  //引进自由数生成器所在的头文件 
+#include<time.h>
+	int main(){  //此处要记得c语言的main函数 必定是整形的 最后要有返回值 
+		
+		int userchoice,flag=0,flag1=0; //flag flag1用来标记赢的次数 
+		int computerchoice;
+		char judge;
+	    printf("大家来玩游戏吧，三局两胜哦\n\n");  
+		printf("按0就代表布,1代表剪刀, 2代表石头. \n"); //打印提示信息 
+		playagain : //goto语句调到此处 代表再玩一次 
+		srand(time(0)); //随机生成数函数初始化 
+		computerchoice=rand()%3; //生成随机数 并限制在3之内 
+		
+		scanf("%d",&userchoice);
+		switch(userchoice){  //switch语句适用于多种情况的选择 
+			case 0  : printf("玩家出 布 \n");break;//case之后记得要break 
+			case 1  : printf("玩家出 剪刀 \n ");break;
+			case 2  : printf("玩家出 石头 \n");break;
+			default : printf("按了一个不该按的东西  \n");goto wronginput;//输入不在范围内的数字 直接提示错误 
+		}
+			
+		switch(computerchoice){  //电脑的情况 
+			case 0  : printf("电脑出 布 \n");break;
+			case 1  : printf("电脑出 剪刀 \n ");break;
+			case 2  : printf("电脑出 石头 \n");break;
+		
+		}
+		
+			if(userchoice==computerchoice) //两者相等 
+				printf("不分输赢\n");
+			else if((userchoice-computerchoice)==1 | (userchoice-computerchoice)==-2)
+           {
+           	   flag++;
+			  printf("不小心被你赢了一局\n");
+			}
+			else if	((userchoice-computerchoice)==2 | (userchoice-computerchoice)==-1)
+          {
+          	  flag1++;
+			  printf("电脑赢了一局\n");	
+			}
+      if(flag+flag1==3|flag==2|flag1==2) //判断是否已经玩了三局 或者任何一方胜两局了 
+  	 {
+      	
+			if(flag>flag1|flag==2) //连赢两局 或者三局两胜的情况 
+			{
+				printf(" 三局两胜你赢了，太棒了\n\n");
+			}else  //否则 
+		{
+			 printf("三局两胜电脑赢了,加油哦\n\n");
+		}
+	return 0;
+      }
+ else  //没有任何一方赢两局的情况 
+ {
+ 		printf("再来一局吧 \n 按y代表继续，n代表不玩了\n"); //判断是否还要继续进行 
+		scanf("%d",judge);
+		scanf("%c",&judge);
+		while(judge=='y')
+		{
+			goto playagain;//当还想玩的时候 用goto语句 跳回开始的地方 否则退出 
+		}
+		
+		wronginput:
+		return 0; //程序结束 记得返回0 
+	}
+	}
